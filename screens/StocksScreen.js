@@ -31,7 +31,7 @@ export default function StocksScreen({ onOpenCoTrader, onShowToast, onDipPress, 
                 {/* Header */}
                 <View style={styles.topNav}>
                     <Text style={styles.dateText}>{dateStr}</Text>
-                    <Text style={styles.screenTitle}>Stocks</Text>
+                    <Text style={styles.screenTitle}>Apple Stocks <Text style={styles.screenTitleAi}>but Better</Text></Text>
                 </View>
 
                 {/* Stock Detail */}
@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     topNav: { paddingHorizontal: spacing.lg, marginBottom: spacing.sm },
     dateText: { ...typography.footnote, color: colors.textSecondary, marginBottom: spacing.xs },
     screenTitle: { ...typography.largeTitle, color: colors.textPrimary },
+    screenTitleAi: { ...typography.largeTitle, color: colors.aiGlow, fontStyle: 'italic' },
     badgeRow: { flexDirection: 'row', paddingHorizontal: spacing.lg, marginTop: spacing.xs, marginBottom: spacing.xs, alignItems: 'center', flexWrap: 'wrap', gap: spacing.sm },
     holdingBadge: {
         backgroundColor: colors.cardBackground, paddingHorizontal: spacing.md, paddingVertical: spacing.sm,
