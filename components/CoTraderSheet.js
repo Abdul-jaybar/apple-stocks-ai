@@ -125,8 +125,13 @@ export default function CoTraderSheet({ visible, onClose, onBuy, onSell, holding
         ? `${((holding.shares * holding.currentPrice) / (userProfile.totalCash + 80000) * 100).toFixed(0)}%`
         : '20%';
 
+    const Wrapper = Platform.OS === 'web' ? View : Modal;
+    const wrapperProps = Platform.OS === 'web'
+        ? { style: styles.webModalOverlay }
+        : { transparent: true, visible, animationType: 'none', statusBarTranslucent: true };
+
     return (
-        <Modal transparent visible={visible} animationType="none" statusBarTranslucent>
+        <Wrapper {...wrapperProps}>
             <TouchableWithoutFeedback onPress={closeSheet}>
                 <Animated.View style={[styles.backdrop, { opacity: backdropAnim }]} />
             </TouchableWithoutFeedback>
@@ -193,17 +198,21 @@ export default function CoTraderSheet({ visible, onClose, onBuy, onSell, holding
                     <View style={{ height: 40 }} />
                 </ScrollView>
             </Animated.View>
-        </Modal>
+        </Wrapper>
     );
 }
 
 const styles = StyleSheet.create({
     backdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.6)' },
+    webModalOverlay: { ...StyleSheet.absoluteFillObject, zIndex: 1000 },
     sheet: {
         position: 'absolute', bottom: 0, left: 0, right: 0,
         backgroundColor: colors.sheetBackground,
         borderTopLeftRadius: borderRadius.xl, borderTopRightRadius: borderRadius.xl,
-        shadowColor: '#000', shadowOffset: { width: 0, height: -4 }, shadowOpacity: 0.4, shadowRadius: 12, elevation: 12,
+        ...Platform.select({
+            web: { boxShadow: '0px -4px 12px rgba(0,0,0,0.4)' },
+            default: { shadowColor: '#000', shadowOffset: { width: 0, height: -4 }, shadowOpacity: 0.4, shadowRadius: 12, elevation: 12 },
+        }),
     },
     handleContainer: { alignItems: 'center', paddingTop: 10, paddingBottom: 6 },
     handleBar: { width: 36, height: 5, borderRadius: 3, backgroundColor: colors.textTertiary },

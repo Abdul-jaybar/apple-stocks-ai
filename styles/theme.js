@@ -1,5 +1,6 @@
 // Apple Stocks Dark Mode - Design System
 // Mirrors iOS Human Interface Guidelines
+import { Platform } from 'react-native';
 
 export const colors = {
   // Backgrounds
@@ -26,7 +27,7 @@ export const colors = {
   systemIndigo: '#5E5CE6',
   systemPurple: '#BF5AF2',
   systemTeal: '#64D2FF',
-  
+
   // AI accent
   aiGlow: '#A78BFA',
   aiGlowDim: 'rgba(167, 139, 250, 0.15)',
@@ -124,18 +125,24 @@ export const borderRadius = {
 };
 
 export const shadows = {
-  card: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 4,
-  },
-  sheet: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
-  },
+  card: Platform.select({
+    web: { boxShadow: '0px 2px 4px rgba(0,0,0,0.25)' },
+    default: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 4,
+    },
+  }),
+  sheet: Platform.select({
+    web: { boxShadow: '0px -4px 8px rgba(0,0,0,0.3)' },
+    default: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: -4 },
+      shadowOpacity: 0.3,
+      shadowRadius: 8,
+      elevation: 8,
+    },
+  }),
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Animated, Text, StyleSheet, View } from 'react-native';
+import { Animated, Text, StyleSheet, View, Platform } from 'react-native';
 import { colors, typography, spacing, borderRadius } from '../styles/theme';
 
 export default function Toast({ message, type = 'success', visible, onHide }) {
@@ -84,11 +84,16 @@ const styles = StyleSheet.create({
         paddingVertical: spacing.md,
         borderRadius: borderRadius.lg,
         zIndex: 9999,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 8,
+        ...Platform.select({
+            web: { boxShadow: '0px 4px 8px rgba(0,0,0,0.3)' },
+            default: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.3,
+                shadowRadius: 8,
+                elevation: 8,
+            },
+        }),
     },
     icon: {
         fontSize: 18,

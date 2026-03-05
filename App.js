@@ -179,26 +179,28 @@ export default function App() {
   // On web, wrap in iPhone frame for demo presentation
   if (Platform.OS === 'web' && WINDOW_WIDTH > IPHONE_WIDTH + 40) {
     return (
-      <View style={styles.webBackground}>
-        {/* iPhone frame */}
-        <View style={styles.iphoneFrame}>
-          {/* Dynamic Island */}
-          <View style={styles.dynamicIsland} />
-          {/* App content inside frame */}
-          <View style={styles.iphoneScreen}>
-            {appContent}
-          </View>
-          {/* Home indicator */}
-          <View style={styles.homeIndicatorBar}>
-            <View style={styles.homeIndicator} />
+      <SafeAreaProvider>
+        <View style={styles.webBackground}>
+          {/* iPhone frame */}
+          <View style={styles.iphoneFrame}>
+            {/* Dynamic Island */}
+            <View style={styles.dynamicIsland} />
+            {/* App content inside frame */}
+            <View style={styles.iphoneScreen}>
+              {appContent}
+            </View>
+            {/* Home indicator */}
+            <View style={styles.homeIndicatorBar}>
+              <View style={styles.homeIndicator} />
+            </View>
           </View>
         </View>
-      </View>
+      </SafeAreaProvider>
     );
   }
 
   // On mobile / narrow screen, render full screen
-  return appContent;
+  return <SafeAreaProvider>{appContent}</SafeAreaProvider>;
 }
 
 const styles = StyleSheet.create({
@@ -218,11 +220,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     overflow: 'hidden',
     position: 'relative',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 20 },
-    shadowOpacity: 0.5,
-    shadowRadius: 40,
-    elevation: 40,
+    ...Platform.select({
+      web: { boxShadow: '0px 20px 40px rgba(0,0,0,0.5)' },
+      default: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 20 },
+        shadowOpacity: 0.5,
+        shadowRadius: 40,
+        elevation: 40,
+      },
+    }),
   },
   dynamicIsland: {
     position: 'absolute',
