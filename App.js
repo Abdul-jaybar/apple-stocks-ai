@@ -183,8 +183,7 @@ export default function App() {
         <View style={styles.webBackground}>
           {/* iPhone frame */}
           <View style={styles.iphoneFrame}>
-            {/* Dynamic Island */}
-            <View style={styles.dynamicIsland} />
+
             {/* App content inside frame */}
             <View style={styles.iphoneScreen}>
               {appContent}
@@ -231,20 +230,10 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  dynamicIsland: {
-    position: 'absolute',
-    top: 10,
-    alignSelf: 'center',
-    width: 120,
-    height: 34,
-    borderRadius: 20,
-    backgroundColor: '#111',
-    zIndex: 100,
-    left: (IPHONE_WIDTH - 120) / 2 - 3,
-  },
+
   iphoneScreen: {
     flex: 1,
-    paddingTop: 50, // below dynamic island
+    paddingTop: 12,
   },
   homeIndicatorBar: {
     height: 34,
