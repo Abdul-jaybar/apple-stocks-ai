@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Platform } from 'react-native';
 import Svg, { Path, Defs, LinearGradient as SvgLinearGradient, Stop, Circle, Line, G } from 'react-native-svg';
 import { colors, typography, spacing, borderRadius } from '../styles/theme';
 
@@ -34,7 +34,13 @@ export default function StockChart({ data, isPositive = false, dipMarkers = [], 
     const [selectedPeriod, setSelectedPeriod] = useState('1D');
     const [touchData, setTouchData] = useState(null);
 
-    const CHART_WIDTH = chartWidth || (SCREEN_WIDTH - spacing.lg * 2);
+    // If on Web and window is larger than a phone, lock the chart width to the demo iPhone frame (390px)
+    let maxSupportedWidth = SCREEN_WIDTH;
+    if (Platform.OS === 'web' && SCREEN_WIDTH > 430) {
+        maxSupportedWidth = 390;
+    }
+
+    const CHART_WIDTH = chartWidth || (maxSupportedWidth - spacing.lg * 2);
     const lineColor = isPositive ? colors.stockGreen : colors.stockRed;
     const { linePath, areaPath } = buildPath(data, CHART_WIDTH, CHART_HEIGHT);
 
