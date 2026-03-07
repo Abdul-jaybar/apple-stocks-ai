@@ -74,20 +74,6 @@ export default function StockChart({ data, isPositive = false, dipMarkers = [], 
                     <Path d={areaPath} fill="url(#areaGrad)" />
                     <Path d={linePath} stroke={lineColor} strokeWidth={2} fill="none" strokeLinecap="round" strokeLinejoin="round" />
 
-                    {/* Dip markers - pulsing dots on the chart */}
-                    {dipMarkers.map((dip, i) => {
-                        if (dip.index >= data.length) return null;
-                        const dx = dip.index * stepX;
-                        const dy = scaleY(data[dip.index]);
-                        return (
-                            <G key={i}>
-                                <Circle cx={dx} cy={dy} r={12} fill="rgba(167, 139, 250, 0.2)" />
-                                <Circle cx={dx} cy={dy} r={7} fill="rgba(167, 139, 250, 0.4)" />
-                                <Circle cx={dx} cy={dy} r={4} fill={colors.aiGlow} />
-                            </G>
-                        );
-                    })}
-
                     {/* Scrubber */}
                     {touchData && (
                         <>
@@ -97,12 +83,19 @@ export default function StockChart({ data, isPositive = false, dipMarkers = [], 
                     )}
                 </Svg>
 
-                {/* Tooltip */}
-                {touchData && (
-                    <View style={[styles.tooltip, { left: Math.min(touchData.x - 35, CHART_WIDTH - 80) }]}>
-                        <Text style={styles.tooltipText}>${touchData.price.toFixed(2)}</Text>
-                    </View>
-                )}
+                {/* Dip markers - pulsing dots rendered as Views over the SVG */}
+                {dipMarkers.map((dip, i) => {
+                    if (dip.index >= data.length) return null;
+                    const dx = dip.index * stepX;
+                    const dy = scaleY(data[dip.index]);
+                    return (
+                        <View key={`marker-${i}`} style={[styles.dipMarkerGlow, { left: dx - 12, top: dy - 12 }]} pointerEvents="none">
+                            <View style={styles.dipMarkerInner}>
+                                <View style={styles.dipMarkerCore} />
+                            </View>
+                        </View>
+                    );
+                })}
 
                 {/* Tappable dip marker overlays */}
                 {dipMarkers.map((dip, i) => {
@@ -114,12 +107,22 @@ export default function StockChart({ data, isPositive = false, dipMarkers = [], 
                             key={`tap-${i}`}
                             activeOpacity={0.6}
                             onPress={() => onDipPress && onDipPress(dip, i)}
-                            style={[styles.dipTouchTarget, { left: dx - 22, top: dy - 22 }]}
+                            style={[
+                                styles.dipTouchTarget,
+                                {
+                                    left: dx - 22,
+                                    top: dy - 22,
+                                    position: 'absolute',
+                                    zIndex: 100,
+                                    elevation: 10
+                                }
+                            ]}
                         >
                             <Text style={styles.dipIcon}>✦</Text>
                         </TouchableOpacity>
                     );
                 })}
+
             </View>
 
             {/* Time period selector */}
@@ -140,12 +143,13 @@ export default function StockChart({ data, isPositive = false, dipMarkers = [], 
 
 const styles = StyleSheet.create({
     container: { paddingHorizontal: spacing.lg, paddingTop: spacing.md },
-    chartContainer: { height: CHART_HEIGHT, position: 'relative' },
+    chartContainer: { height: CHART_HEIGHT, position: 'relative', zIndex: 1 },
     tooltip: {
-        position: 'absolute', top: 0,
+        position: 'absolute', top: -30,
         backgroundColor: colors.cardBackgroundElevated,
         paddingHorizontal: spacing.sm, paddingVertical: spacing.xs,
         borderRadius: borderRadius.sm,
+        zIndex: 50,
     },
     tooltipText: { ...typography.caption1, color: colors.textPrimary, fontWeight: '600' },
     dipTouchTarget: {
@@ -153,6 +157,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center', alignItems: 'center', zIndex: 10,
     },
     dipIcon: { fontSize: 14, color: colors.aiGlow, opacity: 0 }, // invisible overlay, the SVG circle is visible
+    dipMarkerGlow: {
+        position: 'absolute', width: 24, height: 24, borderRadius: 12,
+        backgroundColor: 'rgba(167, 139, 250, 0.2)',
+        justifyContent: 'center', alignItems: 'center', zIndex: 15,
+    },
+    dipMarkerInner: {
+        width: 14, height: 14, borderRadius: 7,
+        backgroundColor: 'rgba(167, 139, 250, 0.4)',
+        justifyContent: 'center', alignItems: 'center',
+    },
+    dipMarkerCore: {
+        width: 8, height: 8, borderRadius: 4,
+        backgroundColor: colors.aiGlow,
+    },
     periodRow: {
         flexDirection: 'row', justifyContent: 'space-between',
         marginTop: spacing.lg, paddingHorizontal: spacing.xs,
