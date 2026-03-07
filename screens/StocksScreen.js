@@ -12,8 +12,8 @@ import NewsFeed from '../components/NewsFeed';
 
 export default function StocksScreen({ onOpenCoTrader, onShowToast, onDipPress, portfolio }) {
     const stock = heroStock;
-    // Get WS holding from portfolio
-    const wsHolding = portfolio.find(h => h.ticker === 'WS');
+    // Get AAPL holding from portfolio
+    const wsHolding = portfolio.find(h => h.ticker === 'AAPL');
 
     const openCoTrader = async () => {
         if (Platform.OS !== 'web') await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);

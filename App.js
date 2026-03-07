@@ -36,14 +36,14 @@ export default function App() {
 
   // ---- CO-TRADER ----
   const openCoTrader = useCallback((holding) => {
-    const h = holding || portfolio.find(p => p.ticker === 'WS');
+    const h = holding || portfolio.find(p => p.ticker === 'AAPL');
     setCoTraderHolding(h || null);
     setCoTraderVisible(true);
   }, [portfolio]);
 
   // ---- BUY ----
   const handleBuy = useCallback((ticker, shares) => {
-    const price = ticker === 'WS' ? heroStock.price : 100;
+    const price = ticker === 'AAPL' ? heroStock.price : 100;
     const cost = shares * price;
 
     if (cost > cash) {
@@ -65,7 +65,7 @@ export default function App() {
       }
       return [...prev, {
         id: String(Date.now()),
-        ticker, name: 'Wealthsimple Inc.', shares, avgCost: price,
+        ticker, name: 'Apple Inc.', shares, avgCost: price,
         currentPrice: price, position: 'long', holdingSince: 'Today',
         targetPrice: price * 1.3, stopLoss: price * 0.85,
       }];

@@ -17,28 +17,28 @@ export function generateWSChartData() {
     const dipIndices = []; // track where dips happen
 
     // Morning rally: 0-25
-    let price = 14.20;
+    let price = 184.20;
     for (let i = 0; i < 25; i++) {
-        price += 0.04 + (Math.sin(i * 0.5) * 0.03) + (Math.random() - 0.45) * 0.04;
+        price += 0.40 + (Math.sin(i * 0.5) * 0.3) + (Math.random() - 0.45) * 0.4;
         points.push(parseFloat(price.toFixed(2)));
     }
 
     // First dip: 25-35 (earnings rumor)
     for (let i = 0; i < 10; i++) {
-        price -= 0.06 + (Math.random() * 0.03);
+        price -= 0.60 + (Math.random() * 0.3);
         points.push(parseFloat(price.toFixed(2)));
     }
     dipIndices.push({ index: 30, label: 'Earnings rumor sell-off', type: 'dip' });
 
     // Recovery: 35-50
     for (let i = 0; i < 15; i++) {
-        price += 0.03 + (Math.random() - 0.4) * 0.03;
+        price += 0.30 + (Math.random() - 0.4) * 0.3;
         points.push(parseFloat(price.toFixed(2)));
     }
 
     // Plateau: 50-60
     for (let i = 0; i < 10; i++) {
-        price += (Math.random() - 0.5) * 0.04;
+        price += (Math.random() - 0.5) * 0.4;
         points.push(parseFloat(price.toFixed(2)));
     }
 
@@ -46,21 +46,21 @@ export function generateWSChartData() {
     for (let i = 0; i < 12; i++) {
         const t = i / 11;
         const eased = t * t;
-        price -= 0.05 + eased * 0.08;
+        price -= 0.50 + eased * 0.8;
         points.push(parseFloat(price.toFixed(2)));
     }
     dipIndices.push({ index: 66, label: 'Market-wide sell-off', type: 'dip' });
 
     // Slight bounce: 72-80
     for (let i = 0; i < 8; i++) {
-        price += 0.02 + (Math.random() - 0.4) * 0.02;
+        price += 0.20 + (Math.random() - 0.4) * 0.2;
         points.push(parseFloat(price.toFixed(2)));
     }
 
     // Sharp final drop: 80-90
     for (let i = 0; i < 10; i++) {
         const t = i / 9;
-        price -= 0.04 + t * 0.12;
+        price -= 0.40 + t * 1.2;
         points.push(parseFloat(price.toFixed(2)));
     }
     dipIndices.push({ index: 85, label: 'Analyst downgrade', type: 'dip' });
@@ -71,24 +71,24 @@ export function generateWSChartData() {
 const wsChart = generateWSChartData();
 
 export const heroStock = {
-    ticker: 'WS',
-    name: 'Wealthsimple Inc.',
+    ticker: 'AAPL',
+    name: 'Apple Inc.',
     price: wsChart.points[wsChart.points.length - 1],
-    previousClose: 14.20,
+    previousClose: 184.20,
     get change() { return parseFloat((this.price - this.previousClose).toFixed(2)); },
     get changePercent() { return parseFloat(((this.change / this.previousClose) * 100).toFixed(2)); },
     get isPositive() { return this.change >= 0; },
     chartData: wsChart.points,
     dipMarkers: wsChart.dipIndices,
-    open: 14.18,
-    dayHigh: 14.95,
+    open: 184.18,
+    dayHigh: 189.95,
     dayLow: wsChart.points[wsChart.points.length - 1],
-    volume: '12.8M',
-    avgVolume: '8.1M',
-    marketCap: '4.2B',
-    peRatio: 45.2,
-    high52w: 18.40,
-    low52w: 9.85,
+    volume: '52.8M',
+    avgVolume: '68.1M',
+    marketCap: '2.8T',
+    peRatio: 28.2,
+    high52w: 199.62,
+    low52w: 164.08,
 };
 
 // ---------- SPARKLINE GENERATOR ----------
@@ -182,24 +182,24 @@ export const initialPortfolio = [
     },
 ];
 
-// ---------- DEEP STATS (WS-specific) ----------
+// ---------- DEEP STATS (AAPL-specific) ----------
 export const deepStats = {
     rsi: 28,
     rsiLabel: 'Oversold',
-    movingAvg200: 13.80,
-    below200MA: true,
-    peRatio: 45.2,
-    peSixMonthAvg: 52.1,
+    movingAvg200: 181.80,
+    below200MA: false,
+    peRatio: 28.2,
+    peSixMonthAvg: 30.1,
     peDiscount: true,
-    institutionalHolding: 0.42,
-    revenueGrowth: 0.28,
-    userGrowth: 0.35,
-    historicalRecoveryDays: 18,
-    aum: '45B',
-    aumGrowth: 0.22,
+    institutionalHolding: 0.62,
+    revenueGrowth: 0.08,
+    userGrowth: 0.05,
+    historicalRecoveryDays: 14,
+    aum: '2.8T',
+    aumGrowth: 0.12,
 };
 
-// ---------- AI SCENARIOS (WS-specific) ----------
+// ---------- AI SCENARIOS (AAPL-specific) ----------
 export const aiScenarios = {
     bullCase: {
         title: 'Long-Term Bull Case',
@@ -208,7 +208,7 @@ export const aiScenarios = {
             {
                 icon: '📊',
                 label: 'RSI Signal',
-                detail: `RSI is ${deepStats.rsi} (deeply oversold). WS has bounced from similar levels in ${deepStats.historicalRecoveryDays} days historically.`,
+                detail: `RSI is ${deepStats.rsi} (deeply oversold). AAPL has bounced from similar levels in ${deepStats.historicalRecoveryDays} days historically.`,
             },
             {
                 icon: '📈',
@@ -249,27 +249,27 @@ export const aiScenarios = {
 export const dipInsights = [
     {
         dipIndex: 30,
-        headline: 'Earnings Rumor: Revenue Miss Speculated',
-        detail: 'Unverified reports suggest WS may miss Q4 revenue estimates by 3%. However, user growth metrics remain strong at 35% YoY.',
+        headline: 'Earnings Rumor: Services Revenue Miss Speculated',
+        detail: 'Unverified reports suggest Apple may miss Q4 services revenue estimates by 3%. However, hardware sales remain strong.',
         aiVerdict: 'Low Impact',
         aiColor: '#FF9F0A',
-        relevance: 'Your LONG position (350 shares) is well above the avg cost of $12.40. This rumor is unverified — hold steady.',
+        relevance: 'Your LONG position (350 shares) is well above the avg cost of $165.20. This rumor is unverified — hold steady.',
     },
     {
         dipIndex: 66,
-        headline: 'Market-Wide Sell-Off Hits Fintech Sector',
-        detail: 'Broad market correction triggered by Fed rate concerns. All Canadian fintech stocks down 3-7%. Not WS-specific.',
+        headline: 'Market-Wide Sell-Off Hits Tech Sector',
+        detail: 'Broad market correction triggered by Fed rate concerns. All big tech stocks down 3-7%. Not AAPL-specific.',
         aiVerdict: 'Noise',
         aiColor: '#34C759',
-        relevance: 'Sector-wide event. WS fundamentals unchanged. Your 10+ year horizon makes this irrelevant. Consider adding.',
+        relevance: 'Sector-wide event. AAPL fundamentals unchanged. Your 10+ year horizon makes this irrelevant. Consider adding.',
     },
     {
         dipIndex: 85,
-        headline: 'Analyst Downgrade: Price Target Cut to $12',
-        detail: 'Bay Street analyst cuts WS from "Buy" to "Hold", citing near-term margin compression from premium tier launch costs.',
+        headline: 'Analyst Downgrade: Price Target Cut to $175',
+        detail: 'Wall Street analyst cuts AAPL from "Buy" to "Hold", citing near-term margin compression from new AI server costs.',
         aiVerdict: 'Watch Closely',
         aiColor: '#FF3B30',
-        relevance: 'Approaching your avg cost ($12.40). Stop-loss at $10.50. The premium tier is a growth investment — short-term pain for long-term gain.',
+        relevance: 'Approaching your avg cost ($165.20). Stop-loss at $150.50. The new AI features are a growth investment — short-term pain for long-term gain.',
     },
 ];
 
@@ -282,7 +282,7 @@ export const aiNewsItems = [
         isAI: true,
         timestamp: '1h ago',
         headline: 'AI Assessment: Buying Opportunity.',
-        summary: `You hold WS long-term (350 shares). Today's dip is driven by an analyst downgrade + sector sell-off, but AUM is up 22% and user growth is 35%. RSI at 28 signals oversold. Consider adding to your position.`,
+        summary: `You hold AAPL long-term (350 shares). Today's dip is driven by an analyst downgrade + sector sell-off, but Services revenue is up 12% and iPhone sales are solid. RSI at 28 signals oversold. Consider adding to your position.`,
         relevanceScore: 97,
         tag: 'Personalized for Alex',
     },
