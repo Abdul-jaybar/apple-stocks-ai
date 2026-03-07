@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Platform, Dimensions } from '
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import StocksScreen from './screens/StocksScreen';
 import PortfolioScreen from './screens/PortfolioScreen';
+import NewsScreen from './screens/NewsScreen';
 import CoTraderSheet from './components/CoTraderSheet';
 import DipInsightSheet from './components/DipInsightSheet';
 import Toast from './components/Toast';
@@ -131,13 +132,15 @@ export default function App() {
               onShowToast={showToast}
               onDipPress={handleDipPress}
             />
-          ) : (
+          ) : activeTab === 'portfolio' ? (
             <PortfolioScreen
               portfolio={portfolio}
               cash={cash}
               onAnalyze={handlePortfolioAnalyze}
               onSell={handlePortfolioSell}
             />
+          ) : (
+            <NewsScreen onShowToast={showToast} />
           )}
         </View>
 
@@ -150,6 +153,10 @@ export default function App() {
           <TouchableOpacity style={styles.tab} onPress={() => setActiveTab('portfolio')} activeOpacity={0.6}>
             <Text style={[styles.tabIcon, activeTab === 'portfolio' && styles.tabIconActive]}>💼</Text>
             <Text style={[styles.tabLabel, activeTab === 'portfolio' && styles.tabLabelActive]}>Portfolio</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tab} onPress={() => setActiveTab('news')} activeOpacity={0.6}>
+            <Text style={[styles.tabIcon, activeTab === 'news' && styles.tabIconActive]}>📰</Text>
+            <Text style={[styles.tabLabel, activeTab === 'news' && styles.tabLabelActive]}>News</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
