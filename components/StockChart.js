@@ -124,7 +124,6 @@ export default function StockChart({ data, isPositive = false, dipMarkers = [], 
                                 }
                             ]}
                         >
-                            <Text style={styles.dipIcon}>✦</Text>
                         </TouchableOpacity>
                     );
                 })}
@@ -162,7 +161,6 @@ const styles = StyleSheet.create({
         position: 'absolute', width: 44, height: 44,
         justifyContent: 'center', alignItems: 'center', zIndex: 10,
     },
-    dipIcon: { fontSize: 14, color: colors.aiGlow, opacity: 0 }, // invisible overlay, the SVG circle is visible
     dipMarkerGlow: {
         position: 'absolute', width: 24, height: 24, borderRadius: 12,
         backgroundColor: 'rgba(167, 139, 250, 0.2)',

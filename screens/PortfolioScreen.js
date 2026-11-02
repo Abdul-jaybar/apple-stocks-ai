@@ -43,7 +43,7 @@ function HoldingCard({ holding, onAnalyze, onSell }) {
 
             <View style={styles.actionRow}>
                 <TouchableOpacity activeOpacity={0.7} style={[styles.holdingActionBtn, styles.holdingActionSecondary]} onPress={() => onAnalyze(holding)}>
-                    <Text style={styles.holdingActionText}>✦ AI Analysis</Text>
+                    <Text style={styles.holdingActionText}>AI Analysis</Text>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.7} style={[styles.holdingActionBtn, styles.holdingActionRed]} onPress={() => onSell(holding)}>
                     <Text style={styles.holdingActionTextWhite}>{isLong ? 'Sell' : 'Cover'}</Text>

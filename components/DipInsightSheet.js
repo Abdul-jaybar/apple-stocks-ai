@@ -57,7 +57,6 @@ export default function DipInsightSheet({ visible, onClose, dipIndex }) {
                             <View style={[styles.verdictDot, { backgroundColor: insight.aiColor }]} />
                             <Text style={[styles.verdictText, { color: insight.aiColor }]}>{insight.aiVerdict}</Text>
                         </View>
-                        <Text style={styles.sparkle}>✦</Text>
                     </View>
 
                     {/* Headline */}
@@ -101,7 +100,6 @@ const styles = StyleSheet.create({
     },
     verdictDot: { width: 8, height: 8, borderRadius: 4, marginRight: spacing.xs },
     verdictText: { ...typography.caption1, fontWeight: '700' },
-    sparkle: { fontSize: 18, color: colors.aiGlow },
     headline: { ...typography.headline, color: colors.textPrimary, marginBottom: spacing.xs, lineHeight: 22 },
     detail: { ...typography.subheadline, color: colors.textSecondary, lineHeight: 20, marginBottom: spacing.md },
     recommendBox: {

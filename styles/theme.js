@@ -1,5 +1,4 @@
-// Apple Stocks Dark Mode - Design System
-// Mirrors iOS Human Interface Guidelines
+// Dark theme colors, spacing and type styles
 import { Platform } from 'react-native';
 
 export const colors = {

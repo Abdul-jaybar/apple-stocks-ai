@@ -1,7 +1,6 @@
-// Wealthsimple AI Co-Trader Demo - All mock data
-// Centered on Wealthsimple (WS) as the hero demo stock
+// Mock data for the demo (user, chart, watchlist, portfolio, news)
 
-// ---------- USER PROFILE ----------
+// User profile
 export const userProfile = {
     name: 'Alex',
     strategy: 'Long-Term (10+ years)',
@@ -9,7 +8,7 @@ export const userProfile = {
     totalCash: 15420.00,
 };
 
-// ---------- WEALTHSIMPLE CHART DATA (HERO STOCK) ----------
+// Wealthsimple chart data (hero stock)
 // 90 data points for a realistic intraday chart
 // Includes defined dip zones that trigger AI insight markers
 export function generateWSChartData() {
@@ -91,7 +90,7 @@ export const heroStock = {
     low52w: 164.08,
 };
 
-// ---------- SPARKLINE GENERATOR ----------
+// Sparkline generator
 function generateSparkline(trend, volatility = 1) {
     const points = [];
     let value = 50;
@@ -102,7 +101,7 @@ function generateSparkline(trend, volatility = 1) {
     return points;
 }
 
-// ---------- WATCHLIST ----------
+// Watchlist
 export const watchlist = [
     {
         ticker: 'AAPL',
@@ -142,7 +141,7 @@ export const watchlist = [
     },
 ];
 
-// ---------- PORTFOLIO HOLDINGS ----------
+// Portfolio holdings
 export const initialPortfolio = [
     {
         id: '1',
@@ -182,7 +181,7 @@ export const initialPortfolio = [
     },
 ];
 
-// ---------- DEEP STATS (AAPL-specific) ----------
+// Deep stats (aapl-specific)
 export const deepStats = {
     rsi: 28,
     rsiLabel: 'Oversold',
@@ -199,31 +198,27 @@ export const deepStats = {
     aumGrowth: 0.12,
 };
 
-// ---------- AI SCENARIOS (AAPL-specific) ----------
+// Ai scenarios (aapl-specific)
 export const aiScenarios = {
     bullCase: {
         title: 'Long-Term Bull Case',
         confidence: 74,
         signals: [
             {
-                icon: '📊',
                 label: 'RSI Signal',
                 detail: `RSI is ${deepStats.rsi} (deeply oversold). AAPL has bounced from similar levels in ${deepStats.historicalRecoveryDays} days historically.`,
             },
             {
-                icon: '📈',
                 label: 'Growth',
-                detail: `Revenue up ${Math.round(deepStats.revenueGrowth * 100)}% YoY. User growth at ${Math.round(deepStats.userGrowth * 100)}% — fastest in Canadian fintech.`,
+                detail: `Revenue up ${Math.round(deepStats.revenueGrowth * 100)}% YoY. User growth at ${Math.round(deepStats.userGrowth * 100)}%, the fastest in Canadian fintech.`,
             },
             {
-                icon: '🏦',
                 label: 'AUM',
-                detail: `Assets under management at $${deepStats.aum}, up ${Math.round(deepStats.aumGrowth * 100)}% — strong money inflow signal.`,
+                detail: `Assets under management at $${deepStats.aum}, up ${Math.round(deepStats.aumGrowth * 100)}%, a strong money inflow signal.`,
             },
             {
-                icon: '💰',
                 label: 'Valuation',
-                detail: `P/E at ${deepStats.peRatio}x vs 6-month avg of ${deepStats.peSixMonthAvg}x — trading at a significant discount.`,
+                detail: `P/E at ${deepStats.peRatio}x vs 6-month avg of ${deepStats.peSixMonthAvg}x, trading at a significant discount.`,
             },
         ],
     },
@@ -232,12 +227,10 @@ export const aiScenarios = {
         confidence: 26,
         signals: [
             {
-                icon: '⚠️',
                 label: 'Competition',
                 detail: 'Increased competition from big banks launching zero-fee trading platforms.',
             },
             {
-                icon: '📉',
                 label: 'Technical',
                 detail: `Trading below 200-day MA ($${deepStats.movingAvg200}). Analyst downgrade adding selling pressure.`,
             },
@@ -245,7 +238,7 @@ export const aiScenarios = {
     },
 };
 
-// ---------- DIP INSIGHTS (shown when pressing dip icon on chart) ----------
+// Dip insights (shown when pressing dip icon on chart)
 export const dipInsights = [
     {
         dipIndex: 30,
@@ -253,7 +246,7 @@ export const dipInsights = [
         detail: 'Unverified reports suggest Apple may miss Q4 services revenue estimates by 3%. However, hardware sales remain strong.',
         aiVerdict: 'Low Impact',
         aiColor: '#FF9F0A',
-        relevance: 'Your LONG position (350 shares) is well above the avg cost of $165.20. This rumor is unverified — hold steady.',
+        relevance: 'Your LONG position (350 shares) is well above the avg cost of $165.20. This rumor is unverified, so hold steady.',
     },
     {
         dipIndex: 66,
@@ -269,16 +262,15 @@ export const dipInsights = [
         detail: 'Wall Street analyst cuts AAPL from "Buy" to "Hold", citing near-term margin compression from new AI server costs.',
         aiVerdict: 'Watch Closely',
         aiColor: '#FF3B30',
-        relevance: 'Approaching your avg cost ($165.20). Stop-loss at $150.50. The new AI features are a growth investment — short-term pain for long-term gain.',
+        relevance: 'Approaching your avg cost ($165.20). Stop-loss at $150.50. The new AI features are a growth investment. Short-term pain for long-term gain.',
     },
 ];
 
-// ---------- AI NEWS FEED ----------
+// Ai news feed
 export const aiNewsItems = [
     {
         id: '1',
         source: 'AI Assessment',
-        sourceIcon: '✦',
         isAI: true,
         timestamp: '1h ago',
         headline: 'AI Assessment: Buying Opportunity.',
@@ -289,7 +281,6 @@ export const aiNewsItems = [
     {
         id: '2',
         source: 'Market Analysis',
-        sourceIcon: '◆',
         isAI: false,
         timestamp: '2h ago',
         headline: 'Wealthsimple AUM Hits Record $45B Despite Market Dip',
@@ -300,7 +291,6 @@ export const aiNewsItems = [
     {
         id: '3',
         source: 'Competitor Watch',
-        sourceIcon: '◇',
         isAI: false,
         timestamp: '4h ago',
         headline: 'Big Bank Zero-Fee Launch Delayed to Q3',
@@ -311,10 +301,9 @@ export const aiNewsItems = [
     {
         id: '4',
         source: 'Technical Signal',
-        sourceIcon: '◈',
         isAI: false,
         timestamp: '5h ago',
-        headline: 'RSI at 28 — Historically Bullish for WS',
+        headline: 'RSI at 28, Historically Bullish for WS',
         summary: 'Current RSI level has preceded 15%+ rebounds in 7 of the last 9 instances. Average recovery period: 18 trading days.',
         relevanceScore: 82,
         tag: 'Technical',

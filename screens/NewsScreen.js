@@ -19,7 +19,7 @@ export default function NewsScreen({ onShowToast }) {
                 <View style={styles.personalizedBadge}>
                     <View style={styles.glowDot} />
                     <Text style={styles.personalizedText}>
-                        ✦ Personalized for {userProfile.name}
+                        Personalized for {userProfile.name}
                     </Text>
                 </View>
                 <Text style={styles.personalizedSub}>

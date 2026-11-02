@@ -50,10 +50,6 @@ export default function Toast({ message, type = 'success', visible, onHide }) {
             : type === 'info' ? colors.systemBlue
                 : colors.stockRed;
 
-    const icon = type === 'success' ? '✓'
-        : type === 'warning' ? '⚠'
-            : type === 'info' ? 'ℹ'
-                : '✕';
 
     return (
         <Animated.View
@@ -66,7 +62,6 @@ export default function Toast({ message, type = 'success', visible, onHide }) {
                 },
             ]}
         >
-            <Text style={styles.icon}>{icon}</Text>
             <Text style={styles.message} numberOfLines={2}>{message}</Text>
         </Animated.View>
     );
@@ -94,12 +89,6 @@ const styles = StyleSheet.create({
                 elevation: 8,
             },
         }),
-    },
-    icon: {
-        fontSize: 18,
-        color: '#FFFFFF',
-        marginRight: spacing.sm,
-        fontWeight: '700',
     },
     message: {
         ...typography.subheadline,

@@ -15,7 +15,7 @@ const IPHONE_WIDTH = 390;
 const IPHONE_HEIGHT = 844;
 
 export default function App() {
-  // ---- STATE ----
+  // app state
   const [activeTab, setActiveTab] = useState('stocks');
   const [portfolio, setPortfolio] = useState(initialPortfolio);
   const [cash, setCash] = useState(userProfile.totalCash);
@@ -29,19 +29,19 @@ export default function App() {
   // Toast
   const [toast, setToast] = useState({ visible: false, message: '', type: 'success' });
 
-  // ---- TOAST ----
+  // toast
   const showToast = useCallback((message, type = 'success') => {
     setToast({ visible: true, message, type });
   }, []);
 
-  // ---- CO-TRADER ----
+  // co-trader
   const openCoTrader = useCallback((holding) => {
     const h = holding || portfolio.find(p => p.ticker === 'AAPL');
     setCoTraderHolding(h || null);
     setCoTraderVisible(true);
   }, [portfolio]);
 
-  // ---- BUY ----
+  // buy
   const handleBuy = useCallback((ticker, shares) => {
     const price = ticker === 'AAPL' ? heroStock.price : 100;
     const cost = shares * price;
@@ -74,7 +74,7 @@ export default function App() {
     showToast(`Bought ${shares} shares of ${ticker} at $${price.toFixed(2)}`, 'success');
   }, [cash, showToast]);
 
-  // ---- SELL ----
+  // sell
   const handleSell = useCallback((ticker, shares) => {
     const holding = portfolio.find(h => h.ticker === ticker);
     if (!holding || shares > holding.shares) {
@@ -97,19 +97,19 @@ export default function App() {
     setCash(prev => parseFloat((prev + revenue).toFixed(2)));
 
     if (shares >= holding.shares) {
-      showToast(`Closed ${ticker} position — $${revenue.toFixed(2)} received`, 'warning');
+      showToast(`Closed ${ticker} position, $${revenue.toFixed(2)} received`, 'warning');
     } else {
-      showToast(`Sold ${shares} shares of ${ticker} — $${revenue.toFixed(2)} received`, 'success');
+      showToast(`Sold ${shares} shares of ${ticker} for $${revenue.toFixed(2)}`, 'success');
     }
   }, [portfolio, showToast]);
 
-  // ---- DIP INSIGHT ----
+  // dip insight
   const handleDipPress = useCallback((dip) => {
     setDipSheetIndex(dip.index);
     setDipSheetVisible(true);
   }, []);
 
-  // ---- PORTFOLIO ACTIONS ----
+  // portfolio actions
   const handlePortfolioAnalyze = useCallback((holding) => {
     openCoTrader(holding);
   }, [openCoTrader]);
@@ -119,11 +119,9 @@ export default function App() {
     setCoTraderVisible(true);
   }, []);
 
-  // ---- RENDER ----
   const appContent = (
     <View style={styles.appContainer}>
       <SafeAreaView style={styles.safeArea} edges={['top']}>
-        {/* Screen content */}
         <View style={styles.screenContainer}>
           {activeTab === 'stocks' ? (
             <StocksScreen
@@ -143,25 +141,18 @@ export default function App() {
             <NewsScreen onShowToast={showToast} />
           )}
         </View>
-
-        {/* Tab Bar */}
         <View style={styles.tabBar}>
           <TouchableOpacity style={styles.tab} onPress={() => setActiveTab('stocks')} activeOpacity={0.6}>
-            <Text style={[styles.tabIcon, activeTab === 'stocks' && styles.tabIconActive]}>📈</Text>
             <Text style={[styles.tabLabel, activeTab === 'stocks' && styles.tabLabelActive]}>Stocks</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.tab} onPress={() => setActiveTab('portfolio')} activeOpacity={0.6}>
-            <Text style={[styles.tabIcon, activeTab === 'portfolio' && styles.tabIconActive]}>💼</Text>
             <Text style={[styles.tabLabel, activeTab === 'portfolio' && styles.tabLabelActive]}>Portfolio</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.tab} onPress={() => setActiveTab('news')} activeOpacity={0.6}>
-            <Text style={[styles.tabIcon, activeTab === 'news' && styles.tabIconActive]}>📰</Text>
             <Text style={[styles.tabLabel, activeTab === 'news' && styles.tabLabelActive]}>News</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-
-      {/* Overlays */}
       <CoTraderSheet
         visible={coTraderVisible}
         onClose={() => setCoTraderVisible(false)}
@@ -188,14 +179,10 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <View style={styles.webBackground}>
-          {/* iPhone frame */}
           <View style={styles.iphoneFrame}>
-
-            {/* App content inside frame */}
             <View style={styles.iphoneScreen}>
               {appContent}
             </View>
-            {/* Home indicator */}
             <View style={styles.homeIndicatorBar}>
               <View style={styles.homeIndicator} />
             </View>
@@ -274,24 +261,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(28, 28, 30, 0.95)',
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: colors.separator,
-    paddingBottom: Platform.OS === 'ios' ? 20 : 8,
-    paddingTop: 8,
+    paddingBottom: Platform.OS === 'ios' ? 20 : 12,
+    paddingTop: 12,
   },
   tab: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  tabIcon: {
-    fontSize: 20,
-    marginBottom: 2,
-    opacity: 0.5,
-  },
-  tabIconActive: {
-    opacity: 1,
-  },
   tabLabel: {
-    ...typography.caption2,
+    ...typography.footnote,
     color: colors.textTertiary,
     fontWeight: '600',
   },

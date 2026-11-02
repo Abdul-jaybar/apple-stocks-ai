@@ -1,70 +1,49 @@
-# 📈 Wealthsimple Stock Clone — AI Co-Trader
+# Apple Stocks but Better
 
-A pixel-perfect **Wealthsimple / Apple Stocks** clone built with **React Native + Expo**, featuring an AI Co-Trader bottom sheet and intelligent news feed.
+A stocks app built with React Native and Expo. It looks like the iOS Stocks app and adds an AI co-trader panel, dip markers on the chart, and a filtered news feed.
 
-![React Native](https://img.shields.io/badge/React_Native-0.83-blue?logo=react)
-![Expo](https://img.shields.io/badge/Expo_SDK-55-black?logo=expo)
-![License](https://img.shields.io/badge/License-MIT-green)
+## Features
 
-## ✨ Features
+- Main stock view with an SVG price chart you can drag to scrub
+- Co-trader panel with a bull case and a bear case, confidence scores, and buy/sell buttons
+- Dip markers on the chart that open a short explanation of the drop
+- Portfolio tab with holdings, buy/sell, and profit and loss
+- Watchlist with small sparkline charts
+- News tab that sorts headlines into signal and noise
+- Haptics on iOS and Android
+- Dark theme
 
-- **Hero Stock View** — Real-time price display with dynamic SVG chart, gradient fills, and touch-to-scrub interaction
-- **AI Co-Trader** — Bottom sheet with bull/bear scenario cards, confidence indicators, and actionable buy/sell buttons
-- **Dip Insight Markers** — Tappable chart markers that reveal AI-driven analysis on price dips
-- **Portfolio Management** — Track holdings, buy/sell stocks, and view P&L with real-time updates
-- **Watchlist** — Mini sparkline charts with live pricing for tracked stocks
-- **AI News Feed** — "Signal vs. Noise" filtered news with AI assessment badges
-- **Haptic Feedback** — Native haptics on button interactions (iOS/Android)
-- **Dark Mode** — Pure black OLED-friendly theme matching iOS Human Interface Guidelines
+All data is mock data in `data/mockData.js`.
 
-## 🚀 Quick Start
+## Running it
 
 ```bash
-# Clone the repo
 git clone https://github.com/Abdul-jaybar/apple-stocks-ai.git
 cd apple-stocks-ai
-
-# Install dependencies
 npm install
-
-# Start the Expo dev server
 npx expo start
 ```
 
-Scan the QR code with **Expo Go** on your phone (same Wi-Fi network).
+Scan the QR code with Expo Go on your phone, or press `w` to open it in the browser. On a wide browser window the app is shown inside a phone frame.
 
-## 📱 Tech Stack
+## Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | React Native 0.83 |
-| Platform | Expo SDK 55 |
-| Charts | react-native-svg |
-| Haptics | expo-haptics |
-| Safe Areas | react-native-safe-area-context |
-| Bottom Sheets | Custom Modal + Animated + PanResponder |
+- React Native 0.83
+- Expo SDK 55
+- react-native-svg for charts
+- expo-haptics
+- react-native-safe-area-context
 
-## 📂 Project Structure
+## Folders
 
 ```
-├── App.js                  # Root component with tab navigation
-├── screens/
-│   ├── StocksScreen.js     # Main stocks view with chart + watchlist
-│   └── PortfolioScreen.js  # Portfolio holdings and P&L
-├── components/
-│   ├── StockChart.js       # SVG line chart with gradient + scrubber
-│   ├── StockHeader.js      # Ticker, price, and change display
-│   ├── CoTraderSheet.js    # AI Co-Trader bottom sheet
-│   ├── DipInsightSheet.js  # Dip marker insight overlay
-│   ├── WatchlistItem.js    # Watchlist row with sparkline
-│   ├── NewsFeed.js         # AI-filtered news cards
-│   └── Toast.js            # Notification toasts
-├── data/
-│   └── mockData.js         # Mock stock data, AI scenarios, news
-└── styles/
-    └── theme.js            # iOS-style design system tokens
+App.js            tab navigation and app state
+screens/          Stocks, Portfolio and News screens
+components/       chart, header, sheets, watchlist row, news cards, toast
+data/mockData.js  mock prices, holdings, scenarios and news
+styles/theme.js   colors, spacing and type
 ```
 
-## 📄 License
+## License
 
 MIT

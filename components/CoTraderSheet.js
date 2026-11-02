@@ -41,7 +41,6 @@ function ScenarioCard({ scenario, variant, onActionPress, holding }) {
             </View>
             {scenario.signals.map((signal, i) => (
                 <View key={i} style={styles.signalRow}>
-                    <Text style={styles.signalIcon}>{signal.icon}</Text>
                     <View style={styles.signalContent}>
                         <Text style={styles.signalLabel}>{signal.label}</Text>
                         <Text style={styles.signalDetail}>{signal.detail}</Text>
@@ -53,10 +52,10 @@ function ScenarioCard({ scenario, variant, onActionPress, holding }) {
                 style={[styles.actionButton, isBull ? styles.actionPrimary : styles.actionSecondary, pressed && styles.actionPressed]}
             >
                 <Text style={[styles.actionLabel, isBull ? styles.actionLabelPrimary : styles.actionLabelSecondary]}>
-                    {pressed ? '✓ ' : ''}{actionLabel}
+                    {actionLabel}
                 </Text>
                 <Text style={[styles.actionSublabel, !isBull && { color: colors.textTertiary }]}>
-                    {pressed ? 'Order placed!' : actionSub}
+                    {pressed ? 'Order placed' : actionSub}
                 </Text>
             </TouchableOpacity>
         </View>
@@ -140,7 +139,6 @@ export default function CoTraderSheet({ visible, onClose, onBuy, onSell, holding
                 <ScrollView style={styles.sheetScroll} contentContainerStyle={styles.sheetContent} showsVerticalScrollIndicator={false} bounces>
                     <View style={styles.sheetHeader}>
                         <View style={styles.headerLeft}>
-                            <Text style={styles.sparkleIcon}>✦</Text>
                             <Text style={styles.sheetTitle}>AI Co-Trader</Text>
                         </View>
                         <View style={styles.profileBadge}>
@@ -186,10 +184,10 @@ export default function CoTraderSheet({ visible, onClose, onBuy, onSell, holding
                                 ))}
                             </View>
                             <TouchableOpacity style={styles.confirmSellBtn} onPress={confirmSell} activeOpacity={0.7}>
-                                <Text style={styles.confirmSellText}>✓ Confirm Sell Order</Text>
+                                <Text style={styles.confirmSellText}>Confirm Sell Order</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => setShowSellConfirm(false)} style={styles.cancelBtn}>
-                                <Text style={styles.cancelText}>← Back to Analysis</Text>
+                                <Text style={styles.cancelText}>Back to Analysis</Text>
                             </TouchableOpacity>
                         </View>
                     )}
@@ -220,7 +218,6 @@ const styles = StyleSheet.create({
     sheetContent: { paddingHorizontal: spacing.lg, paddingBottom: spacing.xxxl },
     sheetHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: spacing.md, marginTop: spacing.xs },
     headerLeft: { flexDirection: 'row', alignItems: 'center' },
-    sparkleIcon: { fontSize: 20, color: colors.aiGlow, marginRight: spacing.sm },
     sheetTitle: { ...typography.title3, color: colors.textPrimary },
     profileBadge: { backgroundColor: colors.aiGlowDim, paddingHorizontal: spacing.md, paddingVertical: spacing.xs, borderRadius: borderRadius.pill },
     profileText: { ...typography.caption2, color: colors.aiGlow, fontWeight: '600' },
@@ -236,7 +233,6 @@ const styles = StyleSheet.create({
     confidenceBear: { backgroundColor: colors.stockRedDim },
     confidenceText: { ...typography.caption1, fontWeight: '700' },
     signalRow: { flexDirection: 'row', marginBottom: spacing.md },
-    signalIcon: { fontSize: 16, marginRight: spacing.md, marginTop: 2 },
     signalContent: { flex: 1 },
     signalLabel: { ...typography.footnote, color: colors.textSecondary, fontWeight: '600', marginBottom: 2, textTransform: 'uppercase', letterSpacing: 0.5 },
     signalDetail: { ...typography.subheadline, color: colors.textPrimary, lineHeight: 20 },

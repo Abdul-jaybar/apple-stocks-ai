@@ -47,7 +47,6 @@ export default function StocksScreen({ onOpenCoTrader, onShowToast, onDipPress, 
                         </View>
                     )}
                     <TouchableOpacity onPress={openCoTrader} activeOpacity={0.7} style={styles.coTraderButton}>
-                        <Text style={styles.coTraderIcon}>✦</Text>
                         <Text style={styles.coTraderLabel}>Co-Trader</Text>
                     </TouchableOpacity>
                 </View>
@@ -118,7 +117,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: spacing.md, paddingVertical: spacing.sm, borderRadius: borderRadius.pill,
         minHeight: 44, minWidth: 44,
     },
-    coTraderIcon: { fontSize: 14, color: colors.systemBlue, marginRight: spacing.xs },
     coTraderLabel: { ...typography.subheadline, color: colors.systemBlue, fontWeight: '600' },
     statsRow: { flexDirection: 'row', paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing.md, justifyContent: 'space-between' },
     statItem: { alignItems: 'center' },
